@@ -1,28 +1,9 @@
-const express = require("express");
+const {app} = require("./server.js");
 
-//Create instance of express to configure
-const app = express();
-
-//Create routes
-//GET localhost:3000/
-app.get("/", (request, response) => {
-    response.json({
-        message:"BabyLog Express Setup"
-    });
-});
-
-
-//POST localhost:3000/
-app.post("/", (request, response) => {
-    response.json({
-        message: "POST request received"
-    });
-});
-
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`BabyLog Server listening on localhost:${PORT}`);
+    console.log("BabyLog Server running on port " + PORT);
 });
 
 
