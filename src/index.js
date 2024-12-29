@@ -12,8 +12,17 @@ app.get("/", (request, response) => {
 });
 
 
+//POST localhost:3000/
+app.post("/", (request, response) => {
+    response.json({
+        message: "POST request received"
+    });
+});
+
 const PORT = 3000;
 
 app.listen(PORT, () => {
     console.log(`BabyLog Server listening on localhost:${PORT}`);
 });
+
+
