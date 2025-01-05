@@ -1,7 +1,7 @@
 //User model, represents any user of the app
 
-const mongoose = require ("mongoose");
-const bcrypt = require ("bcrypt");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 //Define MongoDB User schema
 const UserSchema = new mongoose.Schema({
