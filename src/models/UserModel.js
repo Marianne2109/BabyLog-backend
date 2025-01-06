@@ -36,11 +36,7 @@ const UserSchema = new mongoose.Schema({
         select: false,
         minlength: [8, 'Password must contain at least 8 characters.']
     },
-    role: {
-        type: String,
-        enum: ['parent', 'caregiver'],
-        default: 'parent'
-    },
+  
     createdAt: {
         type: Date,
         default: Date.now
@@ -51,7 +47,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 //Add middleware to hash password before saving
-UserSchema.pre('save', async function(next) {
+/*UserSchema.pre('save', async function(next) {
     //Hash new password or if modified
     if (!this.isModified('password')) return next();
 
@@ -62,7 +58,7 @@ UserSchema.pre('save', async function(next) {
     } catch(error) {
         next(error);
     }
-});
+});*/
 
 //Define model based on the schema
 const User = mongoose.model("User", UserSchema);
