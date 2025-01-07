@@ -1,7 +1,7 @@
 //Auth controller will handle registration and login
 
-const jwt = require("jsonwebtoken");
-const { User } = require("../models/UserModel")
+// const jwt = require("jsonwebtoken");
+// const { User } = require("../models/UserModel")
 
 // class AuthController {
 //     //Registration 
