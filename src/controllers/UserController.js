@@ -3,6 +3,7 @@
 const express = require("express");
 
 const { User } = require("../models/UserModel");
+const { Role } = require("../models/RoleModel");
 
 const router = express.Router();
 
