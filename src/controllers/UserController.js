@@ -2,13 +2,11 @@
 
 const express = require("express");
 
-const { User } = require("../models/UserModel");
-const { Role } = require("../models/RoleModel");
+const { User } = require("../module/User");
+const { Role } = require("../module/Role");
 
 const router = express.Router();
 
-
-//CRUD methods for User controller
 
 //Get user profile
 const getUserProfile = async (req, res) => {
