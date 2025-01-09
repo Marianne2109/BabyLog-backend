@@ -1,5 +1,4 @@
 const express = require("express");
-
 const { 
     getUserProfile,
     updateUser,
@@ -8,8 +7,8 @@ const {
     revokeRole,
  } = require("../controllers/UserController");
 const { ModifiedPathsSnapshot } = require("mongoose");
-
 const router = express.Router();
+
 
 router.get('/profile', getUserProfile);
 router.put('/:id', updateUser);
