@@ -1,12 +1,21 @@
 require('dotenv').config();
-
 const mongoose = require("mongoose");
 
-const { UserModel } = require("../models/UserModel");
+// const { UserModel } = require("../models/UserModel");
 
-async function dbConnect(){
-  try { 
-    let databaseUrl = process.env.DATABASE_URL || `mongodb://127.0.0.1:27017/${process.env.npm_package_name}`;
+// async function dbConnect(){
+//   try { 
+//     const databaseUrl = process.env.DATABASE_URL || `mongodb://127.0.0.1:27017/${process.env.npm_package_name}`;
+
+//     await mongoose.connect(databaseUrl, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+
+
+const dbConnect = async () => {
+  try{
+    const databaseUrl = process.env.DATABASE_URL || `mongodb://127.0.0.1:27017/${process.env.npm_package_name}`;
 
     await mongoose.connect(databaseUrl);
 
@@ -19,5 +28,5 @@ async function dbConnect(){
 
 
 module.exports = {
-    dbConnect
+    dbConnect,
 }
