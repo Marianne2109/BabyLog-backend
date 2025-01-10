@@ -17,6 +17,8 @@ app.listen(PORT, async () => {
     console.log("BabyLog Server running on port " + PORT);
 });
 
+
+
 // app.listen(PORT, () => {
 //     console.log(`BabyLog Server running on port ${PORT}`);
 //   }).on("error", (err) => {
