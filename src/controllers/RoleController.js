@@ -2,8 +2,8 @@
 
 const express = require("express");
 
-const { Role } = require("../module/Role");
-const { User } = require("../module/User");
+const { Role } = require("../models/RoleModel");
+const { User } = require("../models/UserModel");
 
 const grantAccess = async (req, res) => {
     const { assignedTo, child, role } = req.body;
