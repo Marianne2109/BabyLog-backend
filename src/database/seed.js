@@ -1,4 +1,4 @@
-const { dbConnect, dbDisconnect } = require("./database");
+const { dbConnect, dbDisconnect } = require("./database/database");
 const User = require("../models/UserModel");
 
 const seed = async () => {
@@ -20,4 +20,3 @@ const seed = async () => {
     }
 },
 
-seedDatabase

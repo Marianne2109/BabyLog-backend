@@ -1,5 +1,6 @@
 const express = require("express");
 const { 
+    createUser,
     getUserProfile,
     updateUser,
     deleteUser,
@@ -9,7 +10,7 @@ const {
 const { ModifiedPathsSnapshot } = require("mongoose");
 const router = express.Router();
 
-
+router.post('/user', createUser)
 router.get('/profile', getUserProfile);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);

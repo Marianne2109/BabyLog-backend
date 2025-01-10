@@ -8,6 +8,33 @@ const { Role } = require("../module/Role");
 const router = express.Router();
 
 
+//Create user - for seeding and testing purposes.
+const createUser = async (req, res) => {
+  try {
+    const {email, password, firstName, lastName } = req.body;
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+    return res.status(400).json({ message: "User already existing." });
+    }
+    
+    const newUser = new User({
+      email,
+      password,
+      firstName,
+      lastName,
+    });
+    
+    await newUser.save();
+    console.log("User created successfully: ", newUser);
+    res.status(201).json({ message: "User created successfully", user: newUser });
+ } catch(error) {
+    console.error("Error creating user: ", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
+ } 
+};
+
+
 //Get user profile
 const getUserProfile = async (req, res) => {
     try {
@@ -18,8 +45,10 @@ const getUserProfile = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        console.log("User profile retrieved successfully.", user);
         res.status(200).json(user);
     } catch (error) {
+        console.error("Error retrieving user profile:", error.message);
         res.status(500).json({ message: "server error", error: error.message });
     }
 };
@@ -35,6 +64,7 @@ const updateUser = async (req, res) => {
             return res.status(400).json({ message: "User not found" });
         }
 
+        console.log("User updated successfully: ", updateUser);
         res.status(200).json({ message: "User updated successfully.", updatedUser });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
@@ -53,8 +83,10 @@ const deleteUser = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        console.log("User deleted successfully: ", deletedUser);
         res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
+        console.error("Error deleting user: ", error.message);
         res.status(500).json({ message: "Server error", error: error.message });
     }
  };
@@ -76,9 +108,11 @@ const allocateRole = async (req, res) => {
   
       user.role = roleId;
       await user.save();
-  
+
+      console.log("Role allocated successfully to user: ", user);
       res.status(200).json({ message: "Role allocated successfully", user });
     } catch (error) {
+      console.error("Error allocating role: ", error.message);
       res.status(500).json({ message: "Server error", error: error.message });
     }
   };
@@ -96,17 +130,20 @@ const revokeRole = async (req, res) => {
       user.role = null;
       await user.save();
   
+      console.log("Role revoked successfully from user: ", user);
       res.status(200).json({ message: "Role revoked successfully", user });
     } catch (error) {
+      console.error("Error revoking role: ", error.message);
       res.status(500).json({ message: "Server error", error: error.message });
     }
   };
 
 module.exports = {
+    createUser, //added for seeding and testing. 
     getUserProfile,
     updateUser,
     deleteUser,
     allocateRole,
     revokeRole,
-}
+};
 
