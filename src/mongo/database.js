@@ -28,4 +28,4 @@ const dbDisconnect = async () => {
 module.exports = {
     dbConnect,
     dbDisconnect,
-}
+};

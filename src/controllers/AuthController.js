@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const User = require("../module/User");
 const bcrypt = require("bcrypt");
-const jwt = require("../jwtFunctions");
+const jwt = require("../utils/jwtFunctions");
 const handleError = require("../utils/errorHandler");
 
 //User registration

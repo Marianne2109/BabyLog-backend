@@ -2,8 +2,8 @@
 
 const express = require("express");
 
-const { User } = require("../module/User");
-const { Role } = require("../module/Role");
+const { User } = require("../models/UserModel");
+const { Role } = require("../models/RoleModel");
 
 const router = express.Router();
 
