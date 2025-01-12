@@ -16,5 +16,3 @@ app.listen(PORT, async () => {
     console.log("BabyLog Server running on port " + PORT);
 });
 
-
-
