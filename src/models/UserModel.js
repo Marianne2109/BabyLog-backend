@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        match: [true, 'Please enter a valid email address.']
+        match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Please enter a valid email address.']
     },
     
     firstName: {
@@ -32,7 +32,6 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Password is required.'],
-        unique: false,
         select: false,
         minlength: [8, 'Password must contain at least 8 characters.']
     },
@@ -54,7 +53,7 @@ UserSchema.pre(
     if (!this.isModified('password')) return next();
 
     try {
-      this.password = await bcrypt.hash(this.password, salt);
+      this.password = await bcrypt.hash(this.password, 10); 
       next();
     } catch(error) {
         next(error);
@@ -67,4 +66,4 @@ const User = mongoose.model("User", UserSchema);
 
 module.exports = {
     User
-}
+};

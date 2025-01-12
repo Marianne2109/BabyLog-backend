@@ -1,0 +1,18 @@
+meta {
+  name: Test Login - wrong email
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "juan.perez@test.com",
+    "password": "password123"
+  }
+}

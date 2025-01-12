@@ -1,15 +1,27 @@
 const express = require("express");
+const cors = require("cors");
+
+//Enables cross-origin resource sharing
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+};
 
 //make server instance
 const app = express();
 
-//SERVER CONFIGURATION
+app.use(cors(corsOptions));
 
-
-//Middleware for JSON request
+//Middleware for JSON request in raw JSON data
 app.use(express.json());
 
-//API response - app.verb(path, callback);
+//Routes
+const UserRoutes = require("./routes/UserRoutes");
+const AuthRoutes = require("./routes/AuthRoutes");
+const RoleRoutes = require("./routes/RoleRoutes");
+
+
+//Root API response - app.verb(path, callback);
 app.get("/", (request, response) => {
    
     response.json({
@@ -17,8 +29,17 @@ app.get("/", (request, response) => {
     });
 });
 
+//Middleware
+app.use("/auth", AuthRoutes);
+app.use("/users", UserRoutes);
+app.use("/role", RoleRoutes);
 
 
+app.get('*', (request, response) => {
+    response.status(404).json({
+        error: "Incorrect page"
+    });
+});
 
 module.exports={
     app

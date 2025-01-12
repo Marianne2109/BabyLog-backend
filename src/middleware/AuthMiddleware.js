@@ -2,13 +2,13 @@
 const jwtFunctions = require("../utils/jwtFunctions");
 
 const authMiddleware = (req, res, next) => {
-  const token = req.header("Authorisation");
+  const token = req.header("Authorization");
   if (!token) {
     return res.status(401).json({ message: "Access denied"});
   }
 
   try {
-    const verified = jwtFunctions.verifyToken(token);
+    const verified = jwtFunctions.verifyToken(token.split(" ")[1]);
     if (!verified) {
       return res.status(401).json({ message: "Invalid token"});
     }

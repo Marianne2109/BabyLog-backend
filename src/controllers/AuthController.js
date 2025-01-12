@@ -1,7 +1,7 @@
 //Auth controller will handle registration and login
 
 const mongoose = require("mongoose");
-const User = require("../module/User");
+const { User } = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../utils/jwtFunctions");
 const handleError = require("../utils/errorHandler");

@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 
 
-
 app.listen(PORT, async () => {
 
     await dbConnect();
