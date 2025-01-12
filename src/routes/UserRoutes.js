@@ -7,7 +7,7 @@ const {
     allocateRole,
     revokeRole,
  } = require("../controllers/UserController");
-const { ModifiedPathsSnapshot } = require("mongoose");
+
 const router = express.Router();
 
 router.post('/user', createUser)
