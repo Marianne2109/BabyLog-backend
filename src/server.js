@@ -19,6 +19,7 @@ app.use(express.json());
 const UserRoutes = require("./routes/UserRoutes");
 const AuthRoutes = require("./routes/AuthRoutes");
 const RoleRoutes = require("./routes/RoleRoutes");
+const ChildRoutes = require("./routes/ChildRoutes");
 
 
 //Root API response - app.verb(path, callback);
