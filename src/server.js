@@ -30,10 +30,11 @@ app.get("/", (request, response) => {
     });
 });
 
-//Middleware
+//Register routes
 app.use("/auth", AuthRoutes);
 app.use("/users", UserRoutes);
 app.use("/role", RoleRoutes);
+app.use("/child", ChildRoutes);
 
 
 app.get('*', (request, response) => {

@@ -26,6 +26,20 @@ const ChildSchema = new mongoose.Schema({
         default: false,
     },
 
+    weightAtBirth: {
+        type: Number, // Weight in kilograms 3.6 for 3.6kg
+        required: [true, "Weight at birth is missing."],
+    },
+
+    heightAtBirth: {
+        type: Number, // Height in centimetres 48 for 48cm
+        required: [true, "Height at birth is missing."],
+    },
+    headCircumferenceAtBirth: {
+        type: Number, //Head circumference in centimetres 35 for 35cm
+        required: [true, "Head circumference at birth missing."],
+    },
+
     createdAt: {
         type: Date,
         default: Date.now,

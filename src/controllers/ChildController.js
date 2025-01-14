@@ -13,18 +13,6 @@ const createChild = async (req, res) => {
     }
 };
 
-//Get all children profiles
-// const getAllChildren = async (req, res) => {
-//     try {
-//         console.log("Fetching all profiles");
-//         const children = await Child.find();
-//         console.log("Fetched profiles", children);
-//         res.status(200).json({ error: error.message });
-//     }  catch (error) {
-//         console.error("Error fetching children:", error);
-//         res.status(500).json({ error: error.message });
-//     }
-// };
 
 //Get child's profile by ID
 const getChildProfile = async (req, res) => {
@@ -58,7 +46,7 @@ const updateChild = async (req, res) => {
 
         console.log("Existing child details:", existingChild);
 
-        const allowedUpdates = ["childName", "dob", "dueDate", "isPremature"];
+        const allowedUpdates = ["childName", "dob", "dueDate", "isPremature", "weightAtBirth", "heightAtBirth", "headCircumferenceAtBirth"];
         const updates = Object.keys(req.body);
 
         console.log("Updates:", updates);

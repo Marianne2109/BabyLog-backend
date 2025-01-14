@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
         default: Date.now
     }
 }, {
-    timestamp: true,        
+    timestamps: true,        
 
 });
 
