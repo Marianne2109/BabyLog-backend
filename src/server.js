@@ -32,7 +32,7 @@ app.get("/", (request, response) => {
 
 //Register routes
 app.use("/auth", AuthRoutes);
-app.use("/users", UserRoutes);
+app.use("/user", UserRoutes);
 app.use("/role", RoleRoutes);
 app.use("/child", ChildRoutes);
 

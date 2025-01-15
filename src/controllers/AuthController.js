@@ -1,10 +1,10 @@
 //Auth controller will handle registration and login
 
 const mongoose = require("mongoose");
-const { User } = require("../models/UserModel");
+const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../utils/jwtFunctions");
-const handleError = require("../utils/errorHandler");
+const { handleError } = require("../utils/errorHandler");
 
 //User registration
 const registerUser = async (req, res) => {

@@ -17,15 +17,12 @@ const UserSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: [true, 'First name is missing.'],
-        unique: false,
-        trim: true,
         minlength: [2, 'First name must be at least two characters.']
     },
+    
     lastName: {
         type: String,
         required: [true, 'Last name is missing.'],
-        unique: false,
-        trim: true,
         minlength: [2, 'Last name must be at least two characters.']
     },    
     
@@ -64,6 +61,4 @@ UserSchema.pre(
 const User = mongoose.model("User", UserSchema);
 
 
-module.exports = {
-    User
-};
+module.exports = mongoose.model("User", UserSchema);

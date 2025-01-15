@@ -1,5 +1,5 @@
 //Role middleware - check user role to access routes
-const { Role } = require("../models/RoleModel");
+const Role = require("../models/RoleModel");
 
 const roleMiddleware = (requiredRole) => {
     return (req, res, next) => {
