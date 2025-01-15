@@ -11,13 +11,18 @@ const generateToken = (userId, email) => {
 };
 
 const verifyToken = (token) => {
-    try {
-      return jwt.verify(token, process.env.JWT_SECRET);
-    } catch (error) {
-        console.error("Token verification failed:", error.message);
-        return null;
+    if (!token) {
+        throw new Error("jwt must be provided");
     }
-};
+    return jwt.verify(token, process.env.JWT_SECRET);
+}
+    // try {
+    //   return jwt.verify(token, process.env.JWT_SECRET);
+    // } catch (error) {
+    //     console.error("Token verification failed:", error.message);
+    //     return null;
+    // }
+// };
 
 
 module.exports = {
