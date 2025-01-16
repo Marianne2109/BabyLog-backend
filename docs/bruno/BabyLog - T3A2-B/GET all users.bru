@@ -1,12 +1,12 @@
 meta {
-  name: PUT Update user details
+  name: GET all users
   type: http
-  seq: 13
+  seq: 14
 }
 
-put {
-  url: http://localhost:3000/user/update
-  body: json
+get {
+  url: http://localhost:3000/user
+  body: none
   auth: apikey
 }
 
@@ -14,13 +14,4 @@ auth:apikey {
   key: Authorization
   value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg3NjU5YTBkMmU0OWQ2YTE2ZDUzMmYiLCJlbWFpbCI6Imp1YW4ucGVyZXpAdGVzdC5jb20iLCJpYXQiOjE3MzY5OTY2ODQsImV4cCI6MTczNzAwNzQ4NH0.SAwRGd76aaBj7Si1Ij0idh9pTBDoykrQ9Wlmw4qUSas
   placement: header
-}
-
-body:json {
-  {
-    "firstName": "Juan",
-    "lastName": "Parker",
-    "email": "juan.perez@test.com",
-    "password": "pass1234"
-  }
 }
