@@ -7,5 +7,5 @@ const handleError = (res, error) => {
 
 
 module.exports = {
-    handleError
+    handleError,
 };

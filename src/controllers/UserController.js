@@ -2,8 +2,8 @@
 
 const express = require("express");
 
-const { User } = require("../models/UserModel");
-const { Role } = require("../models/RoleModel");
+const User = require("../models/UserModel");
+const Role = require("../models/RoleModel");
 
 const router = express.Router();
 
@@ -45,7 +45,7 @@ const getUserProfile = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        console.log("User profile retrieved successfully.", user);
+        console.log("User profile retrieved successfully:", user);
         res.status(200).json(user);
     } catch (error) {
         console.error("Error retrieving user profile:", error.message);
