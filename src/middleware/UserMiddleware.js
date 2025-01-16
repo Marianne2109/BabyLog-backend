@@ -14,7 +14,7 @@ const userMiddleware = async (req, res, next) => {
 
     try {
         //if token starts with Bearer
-        if (!token.startWith("Bearer ")) {
+        if (!token.startsWith("Bearer ")) {
             console.log("Invalid token format");
             return res.status(400).json({ message: "Invalid token format. Expected 'Bearer <token>'"});
         }
