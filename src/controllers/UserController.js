@@ -56,7 +56,7 @@ const getUserProfile = async (req, res) => {
 //Get all users (for testing and checking data)
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({}, "name email _id"); 
+    const users = await User.find({}, "firstName lastName email _id"); 
     console.log("Existing users:", users);
 
     res.status(200).json(users);

@@ -12,11 +12,11 @@ const { userMiddleware } = require("../middleware/UserMiddleware");
 
 const router = express.Router();
 
-router.post("/user", createUser)
+router.post("/", createUser)
 router.get("/profile", userMiddleware, getUserProfile);
-router.get("/users", getAllUsers);
-router.put("/user/:id", userMiddleware, updateUser);
-router.delete("/user/:id", userMiddleware, deleteUser);
+router.get("/", getAllUsers);
+router.put("/:id", userMiddleware, updateUser);
+router.delete("/:id", userMiddleware, deleteUser);
 router.post("/allocate-role", allocateRole);
 router.post("/revoke-role", revokeRole);
 
