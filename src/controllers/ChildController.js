@@ -8,7 +8,7 @@ const createChild = async (req, res) => {
         console.log("Child profile created successfully", child);
         res.status(201).json({ message: "Child profile created successfully", child });
     } catch (error) {
-        console.error("An error has occurred when creating the child profile", error);
+        console.error("An error has occurred when creating the child profile", error.message);
         res.status(400).json({ error: error.message });
     }
 };
