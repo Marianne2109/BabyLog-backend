@@ -36,7 +36,7 @@ const getChildProfile = async (req, res) => {
 const updateChild = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log("Update profile for child id:", id, "with body:", req.body);
+        console.log("Update profile for child id:", id, "and data:", req.body);
 
         const existingChild = await Child.findById(id);
         if (!existingChild) {
@@ -46,29 +46,51 @@ const updateChild = async (req, res) => {
 
         console.log("Existing child details:", existingChild);
 
-        const allowedUpdates = ["childName", "dob", "dueDate", "isPremature", "weightAtBirth", "heightAtBirth", "headCircumferenceAtBirth"];
+        const allowedUpdates = [
+            "childName",
+            "dob", 
+            "dueDate", 
+            "isPremature", 
+            "weightAtBirth", 
+            "heightAtBirth", 
+            "headCircumferenceAtBirth",
+        ];
         const updates = Object.keys(req.body);
 
         console.log("Updates:", updates);
 
-        const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
+        const isValidOperation = updates.every((update) => 
+            allowedUpdates.includes(update)
+    );
         if(!isValidOperation) {
             console.log("Invalid updates", updates);
             return res.status(400).json({ error: "Invalid updates" });
         }
 
-        updates.forEach((update) => {
-            console.log('Updating: ${update} with value:', req.body[update]);
-            existingChild[update] = req.body[update];
-        });
+        const updatedChild = await Child.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true, runValidators: true }
+        );
 
-        await existingChild.save();
+        if(!updatedChild) {
+            console.log("Child profile not found, id:", id);
+            return res.status(404).json({ message: "Child not found." });
+        }
 
-        console.log("Child details have been updated", existingChild);
-        res.status(200).json({ message: "Child details updated successfully", child: existingChild});
+
+    //     updates.forEach((update) => {
+    //         console.log('Updating: ${update} with value:', req.body[update]);
+    //         existingChild[update] = req.body[update];
+    //     });
+
+    //     await existingChild.save();
+
+        console.log("Child profile successfully updated", updatedChild);
+        res.status(200).json({ message: "Child details updated successfully", updatedChild });
     } catch (error) {
         console.error("Error updating details: ", error);
-        res.status(400).json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 
