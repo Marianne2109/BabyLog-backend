@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/mongo/seed.js"    
+    "seed": "node src/mongo/seed.js",
+    "check-bruno": "nodemon checkBruno.js"    
   },
   
   "keywords": [],
