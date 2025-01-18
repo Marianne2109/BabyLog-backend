@@ -1,0 +1,25 @@
+meta {
+  name: Revoke access to other user
+  type: http
+  seq: 25
+}
+
+post {
+  url: http:localhost:3000/role/grant
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg3NjU5YTBkMmU0OWQ2YTE2ZDUzMmYiLCJlbWFpbCI6Imp1YW4ucGVyZXpAdGVzdC5jb20iLCJpYXQiOjE3MzcyMDY5MTQsImV4cCI6MTczNzIxNzcxNH0.sczp7QsjgFE8MK9HqFUbAJtEzScgOcEsu2kAj0HlV9A
+  placement: header
+}
+
+body:json {
+  {
+    "assignedTo": "6787415d296f53fdc43ef12c",
+    "child": "6787415d296f53fdc43ef12f",
+    "role": "view"
+  }
+}

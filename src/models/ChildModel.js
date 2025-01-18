@@ -40,12 +40,6 @@ const ChildSchema = new mongoose.Schema({
         type: Number, //Head circumference in centimetres 35 for 35cm
         required: [true, "Head circumference at birth missing."],
     },
-
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-
     //include permission and createdBy 
     createdBy: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -58,6 +52,14 @@ const ChildSchema = new mongoose.Schema({
             role: { type: String, enum: ["view", "edit", "admin"], required: true },
         },
     ],
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
+
+
+const Child = mongoose.model("Child", ChildSchema);
 
 module.exports = mongoose.model ("Child", ChildSchema)
