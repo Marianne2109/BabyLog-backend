@@ -6,6 +6,7 @@ const {
     listAccess,
 } = require("../controllers/RoleController");
 
+
 const router = express.Router();
 
 router.post("/grant", grantAccess);

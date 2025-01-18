@@ -1,6 +1,7 @@
 //Child model represents a child profile 
 
 const mongoose = require("mongoose");
+const { User } = require("../models/UserModel");
 
 //MongoDB Child Schema
 const ChildSchema = new mongoose.Schema({
@@ -47,7 +48,7 @@ const ChildSchema = new mongoose.Schema({
 
     //include permission and createdBy 
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "User", //For user who created the profile, by default this is admin
         required: true,
     },

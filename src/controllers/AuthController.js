@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../utils/jwtFunctions");
-const { handleError } = require("../utils/errorHandler");
+// const { handleError } = require("../utils/errorHandler");
 
 //User registration
 const registerUser = async (req, res) => {
@@ -87,8 +87,8 @@ const loginUser = async (req, res) => {
 
       res.status(200).json({ message: "Login successful", token });
     } catch (error) {
-        console.error("")
-        handleError(res, error);
+        console.error("Error during login:", error.message);
+        res.status(500).json({ message: "Server error", error: error.message });
     }
 };
 

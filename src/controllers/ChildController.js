@@ -3,7 +3,10 @@ const Child = require("../models/ChildModel");
 //Create new child profie
 const createChild = async (req, res) => {
     try {
-        const child = new Child(req.body);
+        const child = new Child({
+            ...req.body,
+            createdBy: req.user.id,
+    });
         await child.save();
         console.log("Child profile created successfully", child);
         res.status(201).json({ message: "Child profile created successfully", child });
@@ -14,12 +17,13 @@ const createChild = async (req, res) => {
 };
 
 
-//Get child's profile by ID
+//Get child profile by ID
 const getChildProfile = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("Fetching child profile:", id);
-        const child = await Child.findById(id);
+
+        const child = await Child.findById(id).populate("createdBy", "email firstName lastName");
         if (!child) {
             console.log("Child not found", id);
             return res.status(404).json({ message: "Child not found"});
@@ -28,6 +32,24 @@ const getChildProfile = async (req, res) => {
         res.status(200).json(child);
     } catch (error) {
         console.error("Error fetching child by Id:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+//Get all child profiles - for development and testing purposes
+const getAllChildren = async (req, res) => {
+    try {
+        console.log("fetching all profiles");
+        const children = await Child.find({}).populate("createdBy", "email firstName lastName");
+        if (children.length === 0) {
+            console.log("No profiles found");
+            return res.status(404).json({ message: "No profiles found" });
+        }
+        console.log("Profiles fetched successfully:", children);
+        res.status(200).json(children);
+    } catch (error) {
+        console.error("Error fetching child profiles:", error);
         res.status(500).json({ error: error.message });
     }
 };
@@ -114,7 +136,7 @@ const deleteChild = async (req, res) => {
 
 module.exports = {
     createChild,
-    // getAllChildren,
+    getAllChildren,
     getChildProfile,
     updateChild,
     deleteChild,
