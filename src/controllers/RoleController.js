@@ -10,15 +10,21 @@ const grantAccess = async (req, res) => {
     const { assignedTo, child, role } = req.body;
 
     try {
-        console.log("Grant access process: ", { owner: req.user.id, assignedTo, child, role });
-
+        console.log("Granting access: ", { owner: req.user.id, assignedTo, child, role });
+        //Validate role
+        const validRoles = ["admin", "view", "edit"];
+        if (!validRoles.includes(role)){
+          console.log("Invalid role provided:", role);
+          return res.status(400).json({ message: "Invalid role." });
+        }
+        
+        //Validate the user getting access to a profile
         const user = await User.findById(assignedTo);
         if (!user) {
           console.log("Failed to grant access: User not found", assignedTo);
           return res.status(404).json({ message: "User not found" });
         } 
-        console.log("User found: ", user);
-        
+               
         //check if child profile exists
         const childExists = await Child.findById(child);
         if (!childExists) {
@@ -29,7 +35,7 @@ const grantAccess = async (req, res) => {
         //check if role exists
         const existingRole = await Role.findOne({ owner: req.user.id, assignedTo, child });
         if (existingRole) {
-            console.log("Grant acces failed, Role already exists for user and child", { assignedTo, child });
+            console.log("Role already exists for user and child:", { assignedTo, child });
             return res.status(400).json({ message: "Access has already been granted" });
         }
 
@@ -59,14 +65,14 @@ const revokeAccess = async (req, res) => {
 
         const role = await Role.findOneAndDelete({ owner: req.user.id, assignedTo, child });
         if (!role) {
-          console.log("Revoke access failed: Role not found", { assignedTo, child });
+          console.log("Role not found", { assignedTo, child });
           return res.status(404).json({ message: "Access not found" });
         }
     
-        console.log("Access revoked successfully: ", role);
+        console.log("Access revoked successfully.");
         res.status(200).json({ message: "Access removed", role });
       } catch (error) {
-
+        console.error("Access error", error.message);
         res.status(500).json({ message: "Server error", error: error.message });
       }
     };
@@ -76,13 +82,13 @@ const revokeAccess = async (req, res) => {
       const { child } = req.params;
     
       try {
-          console.log("List access for child initiated", child);
+          console.log("Listing access for child:", child);
 
           const roles = await Role.find({ child })
             .populate('assignedTo', 'email firstName lastName')
             .populate('owner', 'email firstName lastName');
     
-          console.log("Roles for a child fetched successfully: ", child, "Roles: ", roles);
+          console.log("Roles for a child fetched successfully: ", roles);
           res.status(200).json(roles);
       } catch (error) {
           console.error("Server error", error.message);
