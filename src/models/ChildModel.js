@@ -44,6 +44,19 @@ const ChildSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+
+    //include permission and createdBy 
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User", //For user who created the profile, by default this is admin
+        required: true,
+    },
+    permissions: [
+        {
+            user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            role: { type: String, enum: ["view", "edit", "admin"], required: true },
+        },
+    ],
 });
 
 module.exports = mongoose.model ("Child", ChildSchema)

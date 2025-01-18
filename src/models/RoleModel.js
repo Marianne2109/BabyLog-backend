@@ -25,12 +25,16 @@ const RoleSchema = new mongoose.Schema({
 
     role: {
         type: String,
-        enum: ['parent', 'caregiver'],
+        enum: ["admin", "view", "edit"],
         required: true,
     },
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    revokedAt:  {
+        type: Date,
+        default: null,
     },
 });
 
