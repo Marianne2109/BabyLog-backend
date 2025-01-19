@@ -1,6 +1,7 @@
 //Child model represents a child profile 
 
 const mongoose = require("mongoose");
+const { User } = require("../models/UserModel");
 
 //MongoDB Child Schema
 const ChildSchema = new mongoose.Schema({
@@ -39,6 +40,18 @@ const ChildSchema = new mongoose.Schema({
         type: Number, //Head circumference in centimetres 35 for 35cm
         required: [true, "Head circumference at birth missing."],
     },
+    //include permission and createdBy 
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User", //For user who created the profile, by default this is admin
+        required: true,
+    },
+    permissions: [
+        {
+            user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+            role: { type: String, enum: ["view", "edit", "admin"], required: true },
+        },
+    ],
 
     createdAt: {
         type: Date,
@@ -58,5 +71,8 @@ const ChildSchema = new mongoose.Schema({
         },
     ],
 });
+
+
+const Child = mongoose.model("Child", ChildSchema);
 
 module.exports = mongoose.model ("Child", ChildSchema)

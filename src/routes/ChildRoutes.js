@@ -4,14 +4,16 @@ const {
     getChildProfile,
     updateChild,
     deleteChild,
+    getAllChildren,
 } = require("../controllers/ChildController");
 
 const router = express.Router();
 
-router.post('/child', createChild); //Create new child profile
-router.get('/child/:id', getChildProfile); //Get a child's profile by id
-router.put('/child/:id', updateChild); //Update a childs details
-router.delete('/child/:id', deleteChild); //Delete a child 
+router.post('/', createChild); //Create new child profile
+router.get('/:id', getChildProfile); //Get a child's profile by id
+router.get('/', getAllChildren);
+router.put('/:id', updateChild); //Update a childs details
+router.delete('/:id', deleteChild); //Delete a child 
 
 
 module.exports = router;

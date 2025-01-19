@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../utils/jwtFunctions");
-const { handleError } = require("../utils/errorHandler");
+// const { handleError } = require("../utils/errorHandler");
 
 //User registration
 const registerUser = async (req, res) => {
@@ -40,7 +40,16 @@ const registerUser = async (req, res) => {
         await session.commitTransaction();
         session.endSession();
 
-        res.status(201).json({ message: "User registered successfully" });
+        // Response with user details including user id    
+        res.status(201).json({ 
+          message: "User registered successfully",
+          user: {
+            id: newUser._id,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+          },
+        });
     } catch (error) {
         console.error("Error during registration: ", error.message);
         await session.abortTransaction();
@@ -78,8 +87,8 @@ const loginUser = async (req, res) => {
 
       res.status(200).json({ message: "Login successful", token });
     } catch (error) {
-        console.error("")
-        handleError(res, error);
+        console.error("Error during login:", error.message);
+        res.status(500).json({ message: "Server error", error: error.message });
     }
 };
 

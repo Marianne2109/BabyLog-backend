@@ -1,22 +1,36 @@
-
-
 const express = require("express");
-
+const mongoose = require("mongoose");
 const { Role } = require("../models/RoleModel");
 const { User } = require("../models/UserModel");
+const { Child } = require("../models/ChildModel");
+const { authMiddleware } = require("../middleware/AuthMiddleware");
+
+
+
 
 //Grant access to a user for a specific child profile
 const grantAccess = async (req, res) => {
     const { assignedTo, child, role } = req.body;
 
     try {
-        console.log("Granting access: ", { owner: req.user.id, assignedTo, child, role });
+        console.log("Granting access: ", { assignedTo, child, role });
         //Validate role
         const validRoles = ["admin", "view", "edit"];
         if (!validRoles.includes(role)){
           console.log("Invalid role provided:", role);
           return res.status(400).json({ message: "Invalid role." });
         }
+
+        //Validate Ids
+        if (!mongoose.Types.ObjectId.isValid(assignedTo)) {
+          console.log("Invalid assignedTo ID:", assignedTo);
+          return res.status(400).json({ message: "Invalid assignedTo ID." });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(child)) {
+          console.log("Invalid child ID:", child);
+          return res.status(400).json({ message: "Invalid child ID." });
+        }     
         
         //Validate the user getting access to a profile
         const user = await User.findById(assignedTo);
@@ -49,7 +63,8 @@ const grantAccess = async (req, res) => {
 
     await newRole.save();
 
-    console.log("Access granted successfully")
+    console.log("Access granted successfully", newRole);
+
     res.status(201).json({ message: "Access has been granted successfully", role: newRole });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
@@ -61,6 +76,10 @@ const revokeAccess = async (req, res) => {
     const { assignedTo, child } = req.body;
 
     try {
+        if (!req.user || !req.user.id) {
+          console.log("Unauthorized: req.user is missing");
+          return res.status(401).json({ message: "Unauthorized: User not authenticated" });
+    }
         console.log("Revoking access", { owner: req.user.id, assignedTo, child });
 
         const role = await Role.findOneAndDelete({ owner: req.user.id, assignedTo, child });

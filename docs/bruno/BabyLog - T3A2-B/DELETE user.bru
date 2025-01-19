@@ -1,0 +1,17 @@
+meta {
+  name: DELETE user
+  type: http
+  seq: 17
+}
+
+delete {
+  url: http://localhost:3000/user/67889034a41fbdb015b33c64
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg3NjU5YTBkMmU0OWQ2YTE2ZDUzMmYiLCJlbWFpbCI6Imp1YW4ucGVyZXpAdGVzdC5jb20iLCJpYXQiOjE3MzcwODAyOTEsImV4cCI6MTczNzA5MTA5MX0.XuC4ZmgDE4JGfMpL7uSiTfE5IZJ3gz529qS29GM2wD8
+  placement: header
+}
