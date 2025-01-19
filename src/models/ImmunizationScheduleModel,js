@@ -1,0 +1,33 @@
+const mongoose = require("mongoose");
+
+const ImmunizationScheduleSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+    },
+    age: {
+        type: String,
+        required: true,
+    },
+    vaccines: [
+        {
+            name: {
+                type: String,
+                required: true
+            },
+            vaccineBrand: {
+                type: String,
+                default: null
+            },
+            notes: {
+                type: String,
+                default: null
+            },
+        },
+    ],
+});
+
+const ImmunizationScheduleModel = mongoose.model('ImmunizationSchedule', ImmunizationScheduleSchema);
+
+module.exports  = ImmunizationScheduleModel;
+

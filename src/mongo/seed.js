@@ -53,13 +53,4 @@ const seed = async () => {
 seed();
 
 
-// dbConnect()
-// .then(() => {
-//     console.log("connected to database. Seed in progress");
-//     return seed();
-// })
-// .catch((error) => {
-//     console.log("Failed to connect to database", error.message);
-//     process.exit(1);
-// });
 
