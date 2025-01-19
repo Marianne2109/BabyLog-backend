@@ -29,6 +29,9 @@ const seedNipSchedule = async () => {
             }))
           );
 
+        await ImmunizationSchedule.deleteMany({});
+        console.log('Deleting existing data');
+
         await ImmunizationSchedule.insertMany(flattenedData);
         console.log('Database seeded successfully');
       } catch (error) {

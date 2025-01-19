@@ -11,7 +11,7 @@ const ImmunizationScheduleSchema = new mongoose.Schema({
     },
     diseaseName: {
         type: String,
-        required: true
+        required: true,
     },
     vaccineBrand: {
         type: String,
@@ -21,8 +21,19 @@ const ImmunizationScheduleSchema = new mongoose.Schema({
     },
 });
 
+const getFullSchedule = async () => {
+    return await ImmunizationSchedule.find();
+};
+
+const getScheduleByAge = async (age) => {
+    return await ImmunizationSchedule.findOne({ age });
+};
+
+
 const ImmunizationSchedule = mongoose.model('ImmunizationSchedule', ImmunizationScheduleSchema);
 
 module.exports  = {
     ImmunizationSchedule,
+    getFullSchedule,
+    getScheduleByAge
 }
