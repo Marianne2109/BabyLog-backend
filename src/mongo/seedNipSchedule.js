@@ -19,23 +19,35 @@ const seedNipSchedule = async () => {
         await dbConnect();
         console.log("Connected to MongoDB");
 
-        const flattenedData = immunizationData.flatMap((entry) =>
-            entry.diseases.map((disease) => ({
-              id: entry.id,
-              age: entry.age,
-              diseaseName: disease.name,
-              vaccineBrand: disease.vaccineBrand || entry.vaccineBrand,
-              notes: disease.notes,
-            }))
-          );
+        // const flattenedData = immunizationData.flatMap((entry) =>
+        //     entry.diseases.map((disease) => ({
+        //       id: entry.id,
+        //       age: entry.age,
+        //       diseaseName: disease.name,
+        //       vaccineBrand: disease.vaccineBrand || entry.vaccineBrand,
+        //       notes: disease.notes,
+        //     }))
+        //   );
 
         await ImmunizationSchedule.deleteMany({});
         console.log('Deleting existing data');
 
-        await ImmunizationSchedule.insertMany(flattenedData);
+        //Nested data structure
+        const nestedData = immunizationData.map((entry) => ({
+          id: entry.id,
+          age: entry.age,
+          vaccines: entry.diseases.map((disease) => ({
+            diseaseName: disease.name,
+            vaccineBrand: disease.vaccineBrand || entry.vaccineBrand,
+            notes: disease.notes,           
+          })),
+        }));
+          
+        await ImmunizationSchedule.insertMany(nestedData);
         console.log('Database seeded successfully');
       } catch (error) {
         console.error('Error seeding database:', error);
+
       } finally {
         // Disconnect from the database
         await dbDisconnect();

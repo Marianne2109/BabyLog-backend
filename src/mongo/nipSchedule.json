@@ -21,10 +21,12 @@
           "notes": "Rotarix® vaccine: First dose must be given by 14 weeks of age. Meningococcal B vaccine: Prophylactic paracetamol recommended."
         },
         {
-          "name": "Rotavirus"
+          "name": "Rotavirus",
+          "vaccineBrand": "Rotarix®"
         },
         {
-          "name": "Pneumococcal"
+          "name": "Pneumococcal",
+          "vaccineBrand": "Prevenar13"
         },
         {
           "name": "Meningococcal B",
