@@ -3,7 +3,10 @@
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
-
+const { 
+    dbConnect, 
+    dbDisconnect,
+} = require("../mongo/database");
 const { ImmunizationScheduleModel } = require("../models/ImmunizationScheduleModel");
 
 
@@ -12,30 +15,41 @@ const jsonData = fs.readFileSync(path.join(__dirname, 'immunizationSchedule.json
 const immunizationData = JSON.parse(jsonData);
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/your-database', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+// mongoose.connect('mongodb://127.0.0.1:27017/${process.env.npm_package_name}', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+//   .then(() => {
+//     console.log('Connected to MongoDB');
+//     seedDatabase();
+//   })
+//   .catch((error) => {
+//     console.error('Error connecting to MongoDB:', error);
+//   });
+
+// Seed the database
+const seedImmunizationSchedule = async () => {
+  try {
+    await ImmunizationScheduleModel.insertMany(immunizationData);
+    console.log('Database seeded successfully');
+  } catch (error) {
+    console.error('Error seeding database:', error);
+  } finally {
+    await dbDisconnect();
+  }
+};
+
+// Connect to MongoDB and seed the database
+dbConnect()
   .then(() => {
     console.log('Connected to MongoDB');
-    seedDatabase();
+    return seedDatabase();
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
 
-// Seed the database
-const seedDatabase = async () => {
-  try {
-    await ImmunizationScheduleModel.deleteMany({}); // Clear existing data (optional)
-    await ImmunizationScheduleModel.insertMany(immunizationData);
-    console.log('Database seeded successfully');
-    mongoose.disconnect();
-  } catch (error) {
-    console.error('Error seeding database:', error);
-    mongoose.disconnect();
-  }
-};
+
 // // Load immunization schedule data
 // const jsonFilePath = path.join("../mongo/immunizationSchedule.json");
 // let immunizationData;
@@ -67,4 +81,4 @@ const seedDatabase = async () => {
 //     }
 // };
 
-saveImmunizationSchedule();
+seedImmunizationSchedule();

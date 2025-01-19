@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "seed": "node src/mongo/seed.js",
-    "saveImmunizationSchedule": "node src/mongo/seedImmunizationSchedule.js"
+    "seedImmunizationSchedule": "node src/mongo/seedImmunizationSchedule.js"
   },
   
   "keywords": [],
