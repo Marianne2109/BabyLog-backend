@@ -19,6 +19,10 @@ const seedNipSchedule = async () => {
         await dbConnect();
         console.log("Connected to MongoDB");
 
+        // Ensure collection is dropped to clear stale data
+        await mongoose.connection.db.dropCollection('immunizationschedules').catch(() => console.log('Collection does not exist'));
+        console.log('Dropped old collection');
+
         // const flattenedData = immunizationData.flatMap((entry) =>
         //     entry.diseases.map((disease) => ({
         //       id: entry.id,
@@ -29,20 +33,24 @@ const seedNipSchedule = async () => {
         //     }))
         //   );
 
-        await ImmunizationSchedule.deleteMany({});
-        console.log('Deleting existing data');
+        // await ImmunizationSchedule.deleteMany({});
+        // console.log('Deleting existing data');
 
         //Nested data structure
         const nestedData = immunizationData.map((entry) => ({
-          id: entry.id,
+          id: entry.id || Math.random(), 
           age: entry.age,
           vaccines: entry.diseases.map((disease) => ({
             diseaseName: disease.name,
-            vaccineBrand: disease.vaccineBrand || entry.vaccineBrand,
-            notes: disease.notes,           
+            vaccineBrand: disease.vaccineBrand || null,
+            notes: disease.notes || null,           
           })),
+          notes: entry.notes || null,
         }));
-          
+        
+        
+        console.log("Seeding data:", JSON.stringify(nestedData, null, 2));
+
         await ImmunizationSchedule.insertMany(nestedData);
         console.log('Database seeded successfully');
       } catch (error) {

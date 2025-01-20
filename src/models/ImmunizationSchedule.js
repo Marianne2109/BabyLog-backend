@@ -43,19 +43,8 @@ const ImmunizationScheduleSchema = new mongoose.Schema({
 });
 
 
-// const getFullSchedule = async () => {
-//     return await ImmunizationSchedule.find();
-// };
-
-// const getScheduleByAge = async (age) => {
-//     return await ImmunizationSchedule.findOne({ age });
-// };
-
-
 const ImmunizationSchedule = mongoose.model('ImmunizationSchedule', ImmunizationScheduleSchema);
 
 module.exports  = {
     ImmunizationSchedule,
-    // getFullSchedule,
-    // getScheduleByAge
 }
