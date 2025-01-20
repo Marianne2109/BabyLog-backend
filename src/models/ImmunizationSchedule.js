@@ -21,7 +21,7 @@ const VaccineSchema = new mongoose.Schema({
 
 //Main schema for immunization schedule
 const ImmunizationScheduleSchema = new mongoose.Schema({
-    id: {
+    scheduleId: {
         type: Number,
         required: true,
         unique: true,
