@@ -1,3 +1,5 @@
+//This model is for the Immunization Schedule (static) data that will serve as a reference for all children
+
 const mongoose = require("mongoose");
 
 //Nested schema for vaccines

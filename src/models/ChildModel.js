@@ -3,6 +3,28 @@
 const mongoose = require("mongoose");
 const { User } = require("../models/UserModel");
 
+//Vaccination Status Schema
+const VaccinationStatusSchema = new mongoose.Schema({
+    scheduleId: {
+        type: Number, 
+        required: true,   //link with immunization schedule based on the scheduleId
+    },
+    status: {
+        type: String,
+        enum: ["Up to date", "Overdue", "Upcoming"],
+        default: "Upcoming",
+    },
+    receiveDate: {
+        type: Date,
+        default: null,   //when the vaccine is administered 
+    },
+    reminderDate: {
+        type: Date,
+        default: null, //for creating reminders
+    },
+});
+
+
 //MongoDB Child Schema
 const ChildSchema = new mongoose.Schema({
 
@@ -40,6 +62,9 @@ const ChildSchema = new mongoose.Schema({
         type: Number, //Head circumference in centimetres 35 for 35cm
         required: [true, "Head circumference at birth missing."],
     },
+    //track the vaccination status 
+    vaccinationStatus: [VaccinationStatusSchema],
+    
     //include permission and createdBy 
     createdBy: {
         type: mongoose.Schema.Types.ObjectId, 
