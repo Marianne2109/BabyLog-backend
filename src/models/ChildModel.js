@@ -11,8 +11,8 @@ const VaccinationStatusSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["Up to date", "Overdue", "Upcoming"],
-        default: "Upcoming",
+        enum: ["up to date", "overdue", "upcoming"],
+        default: "upcoming",
     },
     receiveDate: {
         type: Date,
@@ -64,7 +64,7 @@ const ChildSchema = new mongoose.Schema({
     },
     //track the vaccination status 
     vaccinationStatus: [VaccinationStatusSchema],
-    
+
     //include permission and createdBy 
     createdBy: {
         type: mongoose.Schema.Types.ObjectId, 

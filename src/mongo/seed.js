@@ -1,3 +1,5 @@
+
+
 const { 
     dbConnect, 
     dbDisconnect,
@@ -12,18 +14,22 @@ const seed = async () => {
         
         //Seed test user
         const users = [
-            { firstName: "Sara", lastName: "Smith", email:"sara@example.com", password:"123456789" }
+            { 
+                firstName: "Sara", 
+                lastName: "Smith", 
+                email:"sara@example.com", 
+                password:"123456789" 
+            }
         ];
 
-        
+     
         await User.deleteMany({});
-        await User.insertMany(users);
-        console.log("Database seeded successfully.");
+        const insertedUsers = await User.insertMany(users);
+        // await User.insertMany(users);
+        console.log("Database seeded successfully:", insertedUsers);
 
-    // } catch (error) {
-    //     console.error("Seed process unsuccessful:", error.message);
-    // }
-
+        //get created user id
+        const userId = insertedUsers[0]._id;
 
         //Seed test child profile 
         const children = [
@@ -35,11 +41,32 @@ const seed = async () => {
                 weightAtBirth: 3.1,
                 heightAtBirth: 48,
                 headCircumferenceAtBirth: 34,
+                createdBy: userId,
+            },
+            {
+                childName: "florence",
+                dob: new Date("2022-05-20"),
+                dueDate: new Date("2022-05-20"),
+                isPremature: true,
+                weightAtBirth: 3.5,
+                heightAtBirth: 50,
+                headCircumferenceAtBirth: 36,
+                createdBy: userId,
+            },
+            {
+                childName: "bowie",
+                dob: new Date("2021-01-20"),
+                dueDate: new Date("2021-01-19"),
+                isPremature: true,
+                weightAtBirth: 4.2,
+                heightAtBirth: 54,
+                headCircumferenceAtBirth: 38,
+                createdBy: userId,
             },
         ];
         await Child.deleteMany({});
-        await Child.insertMany(children);
-        console.log("child profile created successfully");
+        const insertedChildren = await Child.insertMany(children);
+        console.log("child profile created successfully:", insertedChildren);
 
         await dbDisconnect();
         console.log("Database is now disconnected.");
