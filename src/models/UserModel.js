@@ -53,6 +53,7 @@ UserSchema.pre(
       this.password = await bcrypt.hash(this.password, 10); 
       next();
     } catch(error) {
+        console.error("Error hashing password:", error.message);
         next(error);
     }
 });
@@ -61,4 +62,4 @@ UserSchema.pre(
 const User = mongoose.model("User", UserSchema);
 
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = User;

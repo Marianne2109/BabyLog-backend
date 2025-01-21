@@ -6,8 +6,9 @@ const initializeVaccinationStatus  = require("../utils/vaccinationUtils");
 //Create new child profie
 const createChild = async (req, res) => {
     try {
-        
-        const vaccinationStatus = await initializeVaccinationStatus();
+        const { dob } = req.body;
+
+        const vaccinationStatus = await initializeVaccinationStatus(dob);
         
         const child = new Child({
             ...req.body,

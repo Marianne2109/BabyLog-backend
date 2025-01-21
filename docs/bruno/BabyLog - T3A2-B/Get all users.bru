@@ -7,5 +7,11 @@ meta {
 get {
   url: http://localhost:3000/user
   body: none
-  auth: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhmNjcwZWIzYjE5ZjQ1OWExNzA2ZTEiLCJlbWFpbCI6IndpbGwuYmFuZGljb290QHRlc3QuY29tIiwiaWF0IjoxNzM3NDYxMDIwLCJleHAiOjE3Mzc0NzE4MjB9.vVFKRUi-Xg_2RgSzlep2WpI6brVs01XpxKqvzsxq578
+  placement: header
 }

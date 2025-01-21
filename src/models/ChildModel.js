@@ -101,4 +101,4 @@ const ChildSchema = new mongoose.Schema({
 
 const Child = mongoose.model("Child", ChildSchema);
 
-module.exports = mongoose.model ("Child", ChildSchema)
+module.exports = Child;
