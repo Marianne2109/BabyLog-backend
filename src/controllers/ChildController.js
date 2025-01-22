@@ -8,8 +8,12 @@ const createChild = async (req, res) => {
     try {
         const { dob } = req.body;
 
+        //status based on dob
+        console.log("Calculating vaccination status...");
         const vaccinationStatus = await initializeVaccinationStatus(dob);
-        
+
+        console.log("Vaccination status calculated:", vaccinationStatus);
+
         const child = new Child({
             ...req.body,
             createdBy:  req.user.id,
@@ -134,15 +138,20 @@ const getVaccinationStatus = async (req, res) => {
     }
 };
 
-//Get all child profiles - for development and testing purposes
+//Get all child profiles - testing purposes
 const getAllChildren = async (req, res) => {
     try {
         console.log("fetching all profiles");
         const children = await Child.find({}).populate("createdBy", "email firstName lastName");
+                
+        // Log to check if vaccinationStatus is populated correctly
+        console.log("All Children:", children);
+
         if (children.length === 0) {
             console.log("No profiles found");
             return res.status(404).json({ message: "No profiles found" });
         }
+        
         console.log("Profiles fetched successfully:", children);
         res.status(200).json(children);
     } catch (error) {
