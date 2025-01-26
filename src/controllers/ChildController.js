@@ -15,11 +15,16 @@ const createChild = async (req, res) => {
             ...req.body,
             createdBy:  req.user.id,
             vaccinationStatus,
+            permissions:[
+                {
+                    user: req.user.id,
+                    role: "admin",//Admin role by default for the user who created the profile
+                }
+            ]
         });
         
         await child.save();
-        console.log("Saved child profile:", child);
-        
+        console.log("Child profile created successfully:", child);        
         res.status(201).json({ message: "Child profile created successfully", child });
     } catch (error) {
         console.error("An error has occurred when creating the child profile", error.message);
