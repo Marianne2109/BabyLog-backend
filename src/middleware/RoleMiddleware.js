@@ -11,27 +11,27 @@ const roleMiddleware = (requiredRole) => async (req, res, next) => {
   const userId = req.user.id; //user authenticated
 
   try {
-    console.log('Checking role for user:', userId, child);
+    console.log("Checking role for user:", { userId, child, requiredRole });
 
-    //Verify that the child exists before validation
-    const childExists = await Child.findById(child);
+    //Verify that the child exists 
+    const childExists = await child.findById(child);
     if (!childExists) {
       console.log("Child profile not found:", child);
       return res.status(404).json({ message: "Child profile not found." });
   }
 
     
-    //Check that the user role for a specific child
-    const role = await Role.findOne({ assignedTo: userId, child });
+    //Check that the user role for a  child
+    const role = await role.findOne({ assignedTo: userId, child });
     if (!role) {
-      console.log("User has no role for this child");
+      console.log("User has no role for this child:", { userId, child });
       return res.status(404).json({ message: "Access denied." });
   }
 
     //Compare role levels
-    if (roleLevels[role.role] < roleLevelsP[requiredRole]) {
+    if (roleLevels[role.role] < roleLevels[requiredRole]) {
       console.log("Access denied: insufficient permissions");
-      return res.status(403).json({ message: "Access denied" });
+      return res.status(403).json({ message: "Access denied." });
     }
 
     console.log("Access granted for user:", userId);

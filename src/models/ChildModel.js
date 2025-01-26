@@ -72,7 +72,7 @@ const ChildSchema = new mongoose.Schema({
     permissions: [
         {
             user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-            role: { type: String, enum: ["view", "edit", "admin"], required: true },
+            role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
         },
     ],
 });

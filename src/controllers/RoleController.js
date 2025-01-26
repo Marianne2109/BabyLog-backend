@@ -1,16 +1,15 @@
-const express = require("express");
+//Role controller for managing user roles for child profiles access control
 const mongoose = require("mongoose");
 const { Role } = require("../models/RoleModel");
 const { User } = require("../models/UserModel");
-const { Child } = require("../models/ChildModel");
-
 
 //Grant access to a user for a specific child profile
 const grantAccess = async (req, res) => {
-    const { assignedTo, child, role } = req.body;
-
     try {
-        console.log("Granting access: ", { assignedTo, child, role });
+        const { assignedTo, child, role } = req.body;
+
+        console.log("Grant Access Request:", { assignedTo, child, role });
+
         //Validate role
         const validRoles = ["admin", "view", "edit"];
         if (!validRoles.includes(role)){
@@ -19,32 +18,27 @@ const grantAccess = async (req, res) => {
         }
 
         //Validate Ids
-        if (!mongoose.Types.ObjectId.isValid(assignedTo)) {
-          console.log("Invalid assignedTo ID:", assignedTo);
-          return res.status(400).json({ message: "Invalid assignedTo ID." });
+        if (!mongoose.Types.ObjectId.isValid(assignedTo)|| !mongoose.Types.ObjectId.isValid(child)) {
+          console.log("Invalid ID:", { assignedTo, child });
+          return res.status(400).json({ message: "Invalid id supplied." });
+        }
+        
+        //check if user granting access has admin privileges
+        const adminRole = await Role.findOne({ assignedTo: req.user.id, child, role: "admin" });
+        if (!adminRole) {
+          console.log("Access denied: user is not admin", req.user.id);
+          return res.status(403).json({ message: "Access denied." });
         }
 
-        if (!mongoose.Types.ObjectId.isValid(child)) {
-          console.log("Invalid child ID:", child);
-          return res.status(400).json({ message: "Invalid child ID." });
-        }     
-        
-        //Validate the user getting access to a profile
+        //check if user exists
         const user = await User.findById(assignedTo);
-        if (!user) {
-          console.log("Failed to grant access: User not found", assignedTo);
+        if (!user) {  
+          console.log("User not found", assignedTo);
           return res.status(404).json({ message: "User not found" });
-        } 
-               
-        //check if child profile exists
-        const childExists = await Child.findById(child);
-        if (!childExists) {
-          console.log("Grant access failed, child profile not found", child);
-          return res.status(404).json({ message: "Child profile not found" });
-        } 
+        }
 
         //check if role exists
-        const existingRole = await Role.findOne({ owner: req.user.id, assignedTo, child });
+        const existingRole = await Role.findOne({ assignedTo, child });
         if (existingRole) {
             console.log("Role already exists for user and child:", { assignedTo, child });
             return res.status(400).json({ message: "Access has already been granted" });
@@ -52,7 +46,6 @@ const grantAccess = async (req, res) => {
 
     //Create new role
     const newRole = new Role({
-        owner: req.user.id,
         assignedTo,
         child,
         role,
@@ -77,9 +70,16 @@ const revokeAccess = async (req, res) => {
           console.log("Unauthorized: req.user is missing");
           return res.status(401).json({ message: "Unauthorized: User not authenticated" });
     }
-        console.log("Revoking access", { owner: req.user.id, assignedTo, child });
+        console.log("Revoking access", { assignedTo, child });
 
-        const role = await Role.findOneAndDelete({ owner: req.user.id, assignedTo, child });
+        //Validate Ids
+        if (!mongoose.Types.ObjectId.isValid(assignedTo)|| !mongoose.Types.ObjectId.isValid(child)) {
+          console.log("Invalid ID:", { assignedTo, child });
+          return res.status(400).json({ message: "Invalid id supplied." });
+        }
+
+        //Check and remove role
+        const role = await role.findOneAndDelete({ assignedTo, child });
         if (!role) {
           console.log("Role not found", { assignedTo, child });
           return res.status(404).json({ message: "Access not found" });
@@ -102,7 +102,6 @@ const revokeAccess = async (req, res) => {
 
           const roles = await Role.find({ child })
             .populate('assignedTo', 'email firstName lastName')
-            .populate('owner', 'email firstName lastName');
     
           console.log("Roles for a child fetched successfully: ", roles);
           res.status(200).json(roles);

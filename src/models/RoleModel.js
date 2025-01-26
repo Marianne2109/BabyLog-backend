@@ -4,13 +4,6 @@ const mongoose = require("mongoose");
 
 //Define Role Schema
 const RoleSchema = new mongoose.Schema({
-    //main user
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User", 
-        required: true,
-    },
-
     assignedTo: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", 
