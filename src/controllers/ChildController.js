@@ -8,11 +8,8 @@ const createChild = async (req, res) => {
     try {
         const { dob } = req.body;
 
-        //status based on dob
-        console.log("Calculating vaccination status...");
         const vaccinationStatus = await initializeVaccinationStatus(dob);
-
-        console.log("Vaccination status calculated:", vaccinationStatus);
+        console.log("Generated vaccination status:", vaccinationStatus);
 
         const child = new Child({
             ...req.body,
@@ -21,7 +18,8 @@ const createChild = async (req, res) => {
         });
         
         await child.save();
-        console.log("Child profile created successfully", child);
+        console.log("Saved child profile:", child);
+        
         res.status(201).json({ message: "Child profile created successfully", child });
     } catch (error) {
         console.error("An error has occurred when creating the child profile", error.message);
@@ -142,20 +140,23 @@ const getVaccinationStatus = async (req, res) => {
 const getAllChildren = async (req, res) => {
     try {
         console.log("fetching all profiles");
-        const children = await Child.find({}).populate("createdBy", "email firstName lastName");
+        const children = await Child.find({}).populate("createdBy", "email firstName lastName").exec();
                 
         // Log to check if vaccinationStatus is populated correctly
-        console.log("All Children:", children);
+        console.log("List of current children:", children);
 
-        if (children.length === 0) {
+        if (!children || children.length === 0) {
             console.log("No profiles found");
             return res.status(404).json({ message: "No profiles found" });
         }
         
-        console.log("Profiles fetched successfully:", children);
-        res.status(200).json(children);
+        // Log to check if vaccinationStatus is populated correctly for debugging
+        children.forEach((child) => 
+            console.log(child.vaccinationStatus));
+
+            res.status(200).json(children);
     } catch (error) {
-        console.error("Error fetching child profiles:", error);
+        console.error("Error fetching children profiles:", error.message);
         res.status(500).json({ error: error.message });
     }
 };

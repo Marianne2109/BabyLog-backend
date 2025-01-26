@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-//Nested schema for vaccines
-const VaccineSchema = new mongoose.Schema({
-    diseaseName: { 
+//Nested schema for disease (vaccine details)
+const DiseaseSchema = new mongoose.Schema({
+    name: { 
         type: String,
         required: true,
         trim: true,
@@ -33,8 +33,8 @@ const ImmunizationScheduleSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    vaccines: {
-        type: [VaccineSchema],
+    diseases: {
+        type: [DiseaseSchema],
         required: true,
     },
     notes: {

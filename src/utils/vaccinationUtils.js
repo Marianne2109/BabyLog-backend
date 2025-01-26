@@ -5,59 +5,67 @@ const moment = require("moment");
 
 const initializeVaccinationStatus = async (dob) => {
     try {
-        console.log("Initializing vaccination status for DOB:", dob);
+        console.log("Initialising vaccination status based on DOB:", dob);
 
         const schedule = await ImmunizationSchedule.find();
-        const childAgeInMonths = moment().diff(moment(dob), 'months');  // Calculate childage in months
+        const childAgeInMonths = moment().diff(moment(dob), "months");  // Calculate childage in months
         
         console.log("Child's age in months:", childAgeInMonths);
 
-        // Determine required vaccines based on child age
-        return schedule.map((schedule) => {
-            console.log("Processing Immunization Schedule:", schedule);
-            // Filter the vaccines based on the child's age
-            const vaccines = schedule.vaccines.map(vaccine => {
-                const vaccineAgeInMonths = schedule.age;  // Age at which this vaccine is required
-                console.log(`Vaccine ${vaccine.diseaseName} requires age:`, vaccineAgeInMonths);
+        const vaccinationStatus = [];
 
-                let status = "upcoming";
-                let receiveDate = null;
+        schedule.forEach((scheduleItem) => {
+            const scheduleAgeInMonths = parseScheduleAge(scheduleItem.age); 
+            console.log(`Processing schedule ${scheduleItem.scheduleId}, age in months: ${scheduleAgeInMonths}`);
+
+            scheduleItem.diseases.forEach((disease) => {
+
+            let status = "upcoming";
+            let receiveDate = null;
+            let reminderDate = null;
                 
-                // If the child's age is greater than or equal to the vaccine's required age
-                if (childAgeInMonths >= vaccineAgeInMonths) {
-                    if (!vaccine.receiveDate) {
-                        status = "upcoming";  // Vaccine still needed
-                    } else {
-                        status = "up to date";  // Vaccine already received
-                        receiveDate = vaccine.receiveDate;
-                    }
-                }
+            if (childAgeInMonths >= scheduleAgeInMonths) {
+                status = "overdue"; //if not received default to overdue
+            }   
+        
+            //if age is past the schedule age and received date is available
+            if (childAgeInMonths >= scheduleAgeInMonths && disease.receiveDate) {
+                status = "up to date";  
+                receiveDate = disease.receiveDate;
+            }
+            
+            //set reminder for 1 month before the vaccine due date
+            if (childAgeInMonths < scheduleAgeInMonths) {    
+                reminderDate = moment(dob).add(scheduleAgeInMonths, "months").toDate();
+            }   
 
-                // If the child's age is past the vaccine's required age but not received
-                if (childAgeInMonths > vaccineAgeInMonths && !vaccine.receiveDate) {
-                    status = "overdue";
-                }
+            console.log(`Vaccine status for ${disease.name} (schedule ID ${scheduleItem.scheduleId}):`, status);
 
-                console.log(`Vaccine status for ${vaccine.diseaseName}:`, status);
-                return {
-                    diseaseName: vaccine.diseaseName || "Unknown",
-                    vaccineBrand: vaccine.vaccineBrand || "Unknown",
-                    status,
-                    receiveDate,
-                };
+            vaccinationStatus.push({
+                scheduleId: scheduleItem.scheduleId,
+                diseaseName: disease.name,
+                vaccineBrand: disease.vaccineBrand,
+                status,
+                receiveDate,
+                reminderDate,
             });
-
-            return {
-                scheduleId: schedule.id,
-                age: schedule.age,
-                vaccines,
-                notes: schedule.notes || null,
-            };
         });
+    });
+
+        return vaccinationStatus;
     } catch (error) {
-        console.error("Error initializing vaccination status:", error.message);
-        throw new Error("Failed to initialize vaccination status");
+        console.error("Error initialising vaccination status:", error.message);
+        throw new Error("Failed to initialise vaccination status");
     }
+};
+
+//Helper function to parse age into months
+const parseScheduleAge = (age) => {
+    if (age.toLowerCase().includes("birth")) return 0;
+    if (age.toLowerCase().includes("weeks")) return parseInt(age) / 4;
+    if (age.toLowerCase().includes("months")) return parseInt(age);
+    if (age.toLowerCase().includes("years")) return parseInt(age) * 12;
+    return null;
 };
 
 module.exports = {

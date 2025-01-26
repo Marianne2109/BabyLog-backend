@@ -1,7 +1,6 @@
 //Child model represents a child profile 
 
 const mongoose = require("mongoose");
-const { User } = require("../models/UserModel");
 
 //Vaccination Status Schema
 const VaccinationStatusSchema = new mongoose.Schema({
@@ -24,7 +23,6 @@ const VaccinationStatusSchema = new mongoose.Schema({
     },
 });
 
-
 //MongoDB Child Schema
 const ChildSchema = new mongoose.Schema({
 
@@ -43,11 +41,11 @@ const ChildSchema = new mongoose.Schema({
         required:[true, 'Due date is missing'],
     },
     
-    isPremature: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
+    // isPremature: {
+    //     type: Boolean,
+    //     required: true,
+    //     default: false,
+    // },
 
     weightAtBirth: {
         type: Number, // Weight in kilograms 3.6 for 3.6kg
@@ -67,24 +65,6 @@ const ChildSchema = new mongoose.Schema({
 
     //include permission and createdBy 
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "User", //For user who created the profile, by default this is admin
-        required: true,
-    },
-    permissions: [
-        {
-            user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-            role: { type: String, enum: ["view", "edit", "admin"], required: true },
-        },
-    ],
-
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-
-    //include permission and createdBy 
-    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", //For user who created the profile, by default this is admin
         required: true,
@@ -96,7 +76,6 @@ const ChildSchema = new mongoose.Schema({
         },
     ],
 });
-
 
 
 const Child = mongoose.model("Child", ChildSchema);

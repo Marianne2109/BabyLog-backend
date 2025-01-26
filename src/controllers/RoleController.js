@@ -5,9 +5,6 @@ const { User } = require("../models/UserModel");
 const { Child } = require("../models/ChildModel");
 
 
-
-
-
 //Grant access to a user for a specific child profile
 const grantAccess = async (req, res) => {
     const { assignedTo, child, role } = req.body;
