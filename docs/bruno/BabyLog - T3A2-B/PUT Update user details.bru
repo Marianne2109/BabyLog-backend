@@ -1,0 +1,26 @@
+meta {
+  name: PUT Update user details
+  type: http
+  seq: 13
+}
+
+put {
+  url: http://localhost:3000/user/update
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg5Yzg0YWM2ZTgxYjdlZTFmNWQ4MjkiLCJlbWFpbCI6IndpbGwuYmFuZGljb290QHRlc3QuY29tIiwiaWF0IjoxNzM3MDgyOTgxLCJleHAiOjE3MzcwOTM3ODF9.E9FPKgWwyv7j1LEnHTsxi-U5xpeJ81T000L-8g7v0ck
+  placement: header
+}
+
+body:json {
+  {
+    "firstName": "Will",
+    "lastName": "Bandicoot",
+    "email": "will.b@test.com",
+    "password": "pass123456"
+  }
+}

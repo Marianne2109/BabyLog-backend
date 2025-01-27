@@ -1,0 +1,185 @@
+[
+  {
+    "scheduleId": 1,
+    "age": "Birth",
+    "diseases": [
+      {
+        "name": "Hepatitis B",
+        "vaccineBrand": "H-B-Vax® II Paediatric or Engerix B® Paediatric",
+        "notes": null
+      }
+    ],
+    "notes": "Usually offered in hospital. Should be given to all infants as soon as practicable after birth. The greatest benefit is if given within 24 hours and must be given within 7 days."
+  },
+  {
+    "scheduleId": 2,
+    "age": "2 months (can be given from 6 weeks of age)",
+    "diseases": [
+      {
+        "name": "Diphtheria, tetanus, pertussis (whooping cough), hepatitis B, polio, Haemophilus influenzae type b (Hib)",
+        "vaccineBrand": "Infanrix® hexa or Vaxelis®",
+        "notes": null
+      },
+      {
+        "name": "Rotavirus",
+        "vaccineBrand": "Rotarix®",
+        "notes": null
+      },
+      {
+        "name": "Pneumococcal",
+        "vaccineBrand": "Prevenar13",
+        "notes": null
+      },
+      {
+        "name": "Meningococcal B",
+        "vaccineBrand": "Bexsero®",
+        "notes": null
+      }
+    ],
+    "notes": "Rotavirus vaccine: First dose must be given by 14 weeks of age. Meningococcal B vaccine: Prophylactic paracetamol recommended."
+  },
+  {
+    "scheduleId": 3,
+    "age": "4 months",
+    "diseases": [
+      {
+        "name": "Diphtheria, tetanus, pertussis (whooping cough), hepatitis B, polio, Haemophilus influenzae type b (Hib)",
+        "vaccineBrand": "Infanrix® hexa or Vaxelis®",
+        "notes": null
+      },
+      {
+        "name": "Rotavirus",
+        "vaccineBrand": "Rotarix®",
+        "notes": null
+      },
+      {
+        "name": "Pneumococcal",
+        "vaccineBrand": "Prevenar13",
+        "notes": null
+      },
+      {
+        "name": "Meningococcal B",
+        "vaccineBrand": "Bexsero®",
+        "notes": null
+      }
+    ],
+    "notes": "Rotavirus vaccine: The second dose must be given by 24 weeks of age. Meningococcal B vaccine: Prophylactic paracetamol recommended."
+  },
+  {
+    "scheduleId": 4,
+    "age": "6 months",
+    "diseases": [
+      {
+        "name": "Diphtheria, tetanus, pertussis (whooping cough), hepatitis B, polio, Haemophilus influenzae type b (Hib)",
+        "vaccineBrand": "Infanrix® hexa or Vaxelis®",
+        "notes": null
+      },
+      {
+        "name": "Pneumococcal",
+        "vaccineBrand": "Prevenar 13®",
+        "notes": null
+      },
+      {
+        "name": "Meningococcal B",
+        "vaccineBrand": "Bexsero®",
+        "notes": null
+      }
+    ],
+    "notes": "Pneumococcal vaccine: An additional (3rd) dose of 13vPCV is required for Aboriginal and Torres Strait Islander children in WA, NT, SA, Qld, and all children with specified medical risk conditions. Refer to Vaccination Handbook for annual influenza vaccination recommendations. Meningococcal B vaccine: Prophylactic paracetamol recommended."
+  },
+  {
+    "scheduleId": 5,
+    "age": "6 months to < 5 years (annually)",
+    "diseases": [
+      {
+        "name": "Influenza",
+        "vaccineBrand": null,
+        "notes": null
+      }
+    ],
+    "notes": "Administer annually. In children aged 6 months to less than 9 years of age in the first year of administration, give 2 doses a minimum of 1 month apart. One dose annually in subsequent years. Information on age-appropriate vaccines is available in the Immunisation Handbook or the annual ATAGI advice on seasonal influenza vaccines."
+  },
+  {
+    "scheduleId": 6,
+    "age": "12 months",
+    "diseases": [
+      {
+        "name": "Meningococcal ACWY",
+        "vaccineBrand": "Nimenrix®",
+        "notes": null
+      },
+      {
+        "name": "Measles, mumps, rubella",
+        "vaccineBrand": "M-M-R® II or Priorix®",
+        "notes": null
+      },
+      {
+        "name": "Pneumococcal",
+        "vaccineBrand": "Prevenar 13®",
+        "notes": null
+      },
+      {
+        "name": "Meningococcal B",
+        "vaccineBrand": "Bexsero®",
+        "notes": null
+      }
+    ],
+    "notes": "Meningococcal B vaccine: Prophylactic paracetamol recommended."
+  },
+  {
+    "scheduleId": 7,
+    "age": "18 months",
+    "diseases": [
+      {
+        "name": "Haemophilus influenzae type b (Hib)",
+        "vaccineBrand": "ActHIB®",
+        "notes": null
+      },
+      {
+        "name": "Measles, mumps, rubella, varicella (chickenpox)",
+        "vaccineBrand": "Priorix-Tetra® or ProQuad®",
+        "notes": null
+      },
+      {
+        "name": "Diphtheria, tetanus, pertussis (whooping cough)",
+        "vaccineBrand": "Infanrix® or Tripacel®",
+        "notes": null
+      },
+      {
+        "name": "Hepatitis A",
+        "vaccineBrand": "Vaqta® Paediatric",
+        "notes": null
+      }
+    ],
+    "notes": "Hepatitis A vaccine: Aboriginal and Torres Strait Islander children in WA, NT, SA, Qld."
+  },
+  {
+    "scheduleId": 8,
+    "age": "4 years",
+    "diseases": [
+      {
+        "name": "Diphtheria, tetanus, pertussis (whooping cough), polio",
+        "vaccineBrand": "Infanrix® IPV or Quadracel®",
+        "notes": null
+      },
+      {
+        "name": "Pneumococcal",
+        "vaccineBrand": "Pneumovax 23®",
+        "notes": null
+      }
+    ],
+    "notes": "Administer first dose of 23vPPV at age 4 years, followed by second dose of 23vPPV at least 5 years later. Refer to the Immunisation Handbook for specified medical risk conditions."
+  },
+  {
+    "scheduleId": 9,
+    "age": "≥ 5 years (annually)",
+    "diseases": [
+      {
+        "name": "Influenza",
+        "vaccineBrand": null,
+        "notes": null
+      }
+    ],
+    "notes": "Administer annually. In children aged 6 months to less than 9 years of age in the first year of administration, give 2 doses a minimum of 1 month apart. One dose annually in subsequent years."
+  }
+]

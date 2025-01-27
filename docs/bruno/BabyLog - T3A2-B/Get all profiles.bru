@@ -1,0 +1,17 @@
+meta {
+  name: Get all profiles
+  type: http
+  seq: 23
+}
+
+get {
+  url: http://localhost:3000/child
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzhmNjcwZWIzYjE5ZjQ1OWExNzA2ZTEiLCJlbWFpbCI6IndpbGwuYmFuZGljb290QHRlc3QuY29tIiwiaWF0IjoxNzM3NDYzMDI0LCJleHAiOjE3Mzc0NzM4MjR9.tEdYFyIJIRW-80_a976ryq2e7k2ysRC7SRMBdp6_hH0
+  placement: header
+}

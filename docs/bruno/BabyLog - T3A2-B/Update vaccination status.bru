@@ -1,0 +1,15 @@
+meta {
+  name: Update vaccination status
+  type: http
+  seq: 26
+}
+
+put {
+  url: http://localhost:3000/child/:id/vaccination
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 
+}

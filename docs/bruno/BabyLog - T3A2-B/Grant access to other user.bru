@@ -1,0 +1,25 @@
+meta {
+  name: Grant access to other user
+  type: http
+  seq: 24
+}
+
+post {
+  url: http:localhost:3000/role/grant
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: Authorization
+  value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzg3NjU5YTBkMmU0OWQ2YTE2ZDUzMmYiLCJlbWFpbCI6Imp1YW4ucGVyZXpAdGVzdC5jb20iLCJpYXQiOjE3MzcxODk5ODEsImV4cCI6MTczNzIwMDc4MX0.n0_9pAZcdPYWj6XcmTPrXEMU6M1m9AJ-6TuYNTvZ9fo
+  placement: header
+}
+
+body:json {
+  {
+    "assignedTo": "6787415d296f53fdc43ef12c",
+    "child": "6787415d296f53fdc43ef12f",
+    "role": "view"
+  }
+}
