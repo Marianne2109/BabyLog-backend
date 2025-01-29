@@ -6,12 +6,12 @@ const mongoose = require("mongoose");
 const VaccinationStatusSchema = new mongoose.Schema({
     scheduleId: {
         type: Number, 
-        required: true,   //link with immunization schedule based on the scheduleId
+        required: true,   //link with ImmunizationSchedule based on the scheduleId
     },
     status: {
         type: String,
         enum: ["up to date", "overdue", "upcoming"],
-        default: "upcoming",
+        default: "overdue", //default status is overdue
     },
     receiveDate: {
         type: Date,

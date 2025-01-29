@@ -5,7 +5,6 @@ const {
     loginUser,
  } = require("../controllers/AuthController");
 
-const { handleError } = require("../utils/errorHandler");
 const router = express.Router();
 
  
