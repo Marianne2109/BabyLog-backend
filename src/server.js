@@ -3,7 +3,9 @@ const cors = require("cors");
 
 //Enables cross-origin resource sharing
 const corsOptions = {
-    origin: ["http://localhost:3000/","http://127.0.0.1:5173/","http://localhost:3000", "https://babylog-backend.onrender.com"],
+    origin: "*", //allow all origins
+    methods: "GET,HEAD,POST,PUT,PATCH,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
     optionsSuccessStatus: 200
 };
 
