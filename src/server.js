@@ -3,10 +3,11 @@ const cors = require("cors");
 
 //Enables cross-origin resource sharing
 const corsOptions = {
-    origin: "*", //allow all origins
-    methods: "GET,HEAD,POST,PUT,PATCH,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
-    optionsSuccessStatus: 200
+    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
+    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
+    credentials: true
 };
 
 //make server instance

@@ -1,6 +1,5 @@
 //Auth controller will handle registration and login
 
-const mongoose = require("mongoose");
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 const jwt = require("../utils/jwtFunctions");
@@ -8,56 +7,46 @@ const jwt = require("../utils/jwtFunctions");
 
 //User registration
 const registerUser = async (req, res) => {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    try {
-        const { firstName, lastName, email, password } = req.body;
+  try {
+    const { firstName, lastName, email, password } = req.body;
 
-        console.log("Starting user registration: ", { firstName, lastName, email });
+    console.log("Starting user registration: ", { firstName, lastName, email });
 
-        //Check if user already exists
-        const existingUser = await User.findOne({ email }).session(session);
-        if (existingUser) {
-            await session.abortTransaction();
-            session.endSession();
-            return res.status(400).json({ message: "User already exists" });
+    //Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+        console.log("User already exists: ", email);
+        return res.status(400).json({ message: "User already exists" });
         }
+    //create new user instance
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
 
-        //new user instance
-        const newUser = new User({
-            firstName,
-            lastName,
-            email,
-            password,
-        });
+    console.log("Creating a new user: ", newUser);
 
-        console.log("Creating a new user: ", newUser);
+    //save new user to the database
+    await newUser.save({ session });
+    console.log("User saved successfully: ", newUser);
 
-        //save new user to the database
-        await newUser.save({ session });
-        console.log("User saved successfully: ", newUser);
-
-        await session.commitTransaction();
-        session.endSession();
-
-        // Response with user details including user id    
-        res.status(201).json({ 
-          message: "User registered successfully",
-          user: {
-            id: newUser._id,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
-            email: newUser.email,
-          },
-        });
+    // Response with user details including user id    
+    res.status(201).json({ 
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      },
+     });
     } catch (error) {
-        console.error("Error during registration: ", error.message);
-        await session.abortTransaction();
-        session.endSession();
-        handleError(res, error);
+      console.error("Error during registration: ", error.message);
+      res.status(500).json({ message: "Server error", error: error.message });
     }
 };
-
 
 //User Login
 const loginUser = async (req, res) => {
@@ -85,7 +74,16 @@ const loginUser = async (req, res) => {
       const token = jwt.generateToken(user._id, user.email);
       console.log("Login successful: ", {email, token});
 
-      res.status(200).json({ message: "Login successful", token });
+      res.status(200).json({
+        message: "Login successful", 
+        token,
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        }
+      });
     } catch (error) {
         console.error("Error during login:", error.message);
         res.status(500).json({ message: "Server error", error: error.message });

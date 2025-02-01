@@ -47,7 +47,7 @@ const getChildProfile = async (req, res) => {
         console.log("Child profile:", child);
         res.status(200).json(child);
     } catch (error) {
-        console.error("Error fetching child by Id:", error);
+        console.error("Error fetching child by Id:", error.message);
         res.status(500).json({ error: error.message });
     }
 };
@@ -171,14 +171,6 @@ const updateChild = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("Update profile for child id:", id, "and data:", req.body);
-
-        const existingChild = await Child.findById(id);
-        if (!existingChild) {
-          console.log("Child not found with Id:", id);
-          return res.status(404).json({ message: "Child not found" });  
-        }
-
-        console.log("Existing child details:", existingChild);
 
         const allowedUpdates = [
             "childName",
