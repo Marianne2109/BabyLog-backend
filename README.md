@@ -1,5 +1,13 @@
-# # T3A2 - Fullstack MERN application. 
+# T3A2 - Fullstack MERN application. 
 For the final project I've decided to create BabyLog, this is a tracking application created for parents and carers as a simple tool to track Growth metrics and Immunisation status. 
+
+## Links for part B
+- [GitHub frontend repo](https://github.com/Marianne2109/babylog-frontend)
+- [Github backend repo](https://github.com/Marianne2109/BabyLog-backend)
+- [Netlify link](https://babylog-frontend.netlify.app/)
+- [Render link](https://babylog-backend.onrender.com/)
+- [Trello board](https://trello.com/b/wJwPDaGl/babylog-fullstack-app)
+  
 
 ## Links
 - [GitHub repo](https://github.com/Marianne2109/T3A2)
