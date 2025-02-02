@@ -50,7 +50,9 @@ UserSchema.pre(
     if (!this.isModified('password')) return next();
 
     try {
+      console.log("Original password:", this.password);
       this.password = await bcrypt.hash(this.password, 10); 
+      console.log("Hashed password:", this.password);
       next();
     } catch(error) {
         console.error("Error hashing password:", error.message);
