@@ -1,7 +1,7 @@
 # T3A2 - Fullstack MERN application. 
 For the final project I've decided to create BabyLog, this is a tracking application created for parents and carers as a simple tool to track Growth metrics and Immunisation status. 
 
-## Links for part B
+## Links part B
 - [GitHub frontend repo](https://github.com/Marianne2109/babylog-frontend)
 - [Github backend repo](https://github.com/Marianne2109/BabyLog-backend)
 - [Netlify link](https://babylog-frontend.netlify.app/)
@@ -9,7 +9,7 @@ For the final project I've decided to create BabyLog, this is a tracking applica
 - [Trello board](https://trello.com/b/wJwPDaGl/babylog-fullstack-app)
   
 
-## Links
+## Links part A
 - [GitHub repo](https://github.com/Marianne2109/T3A2)
 - [Trello board](https://trello.com/b/wJwPDaGl/babylog-fullstack-app)
 - [Figma Wireframes](https://www.figma.com/design/icsxrgbsIblEOglIf1Nhcn/Wireframes---T3A2?node-id=0-1&p=f&t=ZDhaSZG3SpZxlUK4-0)
