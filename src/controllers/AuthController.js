@@ -23,13 +23,13 @@ const registerUser = async (req, res) => {
       firstName,
       lastName,
       email,
-      password,
+      password: password,
     });
 
     console.log("Creating a new user: ", newUser);
-
     //save new user to the database
-    await newUser.save({ session });
+    await newUser.save();
+
     console.log("User saved successfully: ", newUser);
 
     // Response with user details including user id    
@@ -44,7 +44,8 @@ const registerUser = async (req, res) => {
      });
     } catch (error) {
       console.error("Error during registration: ", error.message);
-      res.status(500).json({ message: "Server error", error: error.message });
+
+      res.status(500).json({ message: "Server error", error: error.message });      
     }
 };
 
